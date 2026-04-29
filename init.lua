@@ -14,4 +14,5 @@ require("lazy").setup({
 })
 
 require("config")
+require("autocmd")
 
