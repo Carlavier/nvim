@@ -1,60 +1,60 @@
-local allModes = { 'n', 'v', 's', 'x', 'o' }
+return {
+  'saghen/blink.cmp',
+  event = 'VimEnter',
+  version = '1.*',
+  dependencies = {
+    {
+      'L3MON4D3/LuaSnip',
+      version = '2.*',
+      build = (function()
+        if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then return end
+        return 'make install_jsregexp'
+      end)(),
+      dependencies = {},
+      opts = {},
+    },
+  },
+  ---@module 'blink.cmp'
+  ---@type blink.cmp.Config
+  opts = {
+    keymap = {
+      preset = 'default',
+      ['<CR>'] = { 'accept', 'fallback' },
+      ['<Tab>'] = { 'accept', 'fallback' },
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' },
+      ['<Esc>'] = { 'hide', 'fallback' },
+    },
+    appearance = { nerd_font_variant = 'mono' },
+    completion = {
+      ghost_text = { enabled = true },
+      menu = {
+        auto_show = true,
+      },
+      documentation = { auto_show = false, auto_show_delay_ms = 500 },
+    },
 
-vim.keymap.set(allModes, 'j', 'h')
-vim.keymap.set(allModes, 'l', 'j')
-vim.keymap.set(allModes, ';', 'l')
-vim.keymap.set(allModes, 'h', ';')
+    sources = {
+      default = { 'lsp', 'path', 'snippets' },
+    },
 
-vim.keymap.set(allModes, '<C-w>j', '<C-w>h')
-vim.keymap.set(allModes, '<C-w>l', '<C-w>j')
-vim.keymap.set(allModes, '<C-w>;', '<C-w>l')
+    snippets = {
+      preset = 'luasnip',
+    },
 
-vim.keymap.set('n', '<C-z>', '<Nop>')
+    fuzzy = { implementation = 'lua' },
 
-vim.keymap.set('n', '<C-Right>', 'w', { noremap = true })
-vim.keymap.set('n', '<C-Left>', 'b', { noremap = true })
+    signature = { enabled = true },
+  },
+  config = function(_, opts)
+    require('blink.cmp').setup(opts)
 
-vim.keymap.set({ 'i', 'c' }, '<C-h>', '<C-w>')
+    vim.api.nvim_set_hl(0, 'BlinkCmpGhostText', { link = 'Comment', bg = 'NONE', blend = 0 })
 
-vim.keymap.set({ 'n', 'v' }, 'p', 'gP')
-vim.keymap.set({ 'n', 'v' }, 'P', 'p')
-
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
-vim.keymap.set('n', '<leader>qq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
-vim.keymap.set(
-  'n',
-  '<leader>f',
-  function()
-    require('conform').format({
-      lsp_fallback = true,
-      async = false,
-      timeout_ms = 500,
+    vim.api.nvim_create_autocmd('InsertLeave', {
+      callback = function()
+        vim.schedule(function() require('blink.cmp').hide() end)
+      end,
     })
   end,
-  { desc = '[F]ormat current buffer' }
-)
-
-vim.keymap.set('n', '<leader>qs', function() require('persistence').select() end, { desc = 'Select Session' })
-vim.keymap.set(
-  'n',
-  '<leader>ql',
-  function() require('persistence').load({ last = true }) end,
-  { desc = 'Restore Last Session' }
-)
-vim.keymap.set('n', '<leader>qd', function() require('persistence').stop() end, { desc = "Don't Save Session" })
-
-vim.keymap.set('n', '<leader>x', ':Bdelete<CR>', { desc = 'Close Buffer' })
-vim.keymap.set('n', '<C-PageDown>', ':bnext<CR>', { desc = 'Next Buffer' })
-vim.keymap.set('n', '<C-PageUp>', ':bprev<CR>', { desc = 'Previous Buffer' })
-vim.keymap.set('n', '<leader>u', ':e #<CR>')
-
-vim.keymap.set('n', '<leader>pf', ':Ex<Enter>')
+}

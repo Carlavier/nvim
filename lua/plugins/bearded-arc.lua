@@ -8,7 +8,7 @@ return {
       callback = function()
         local hl = vim.api.nvim_set_hl
         local bg_black = '#000000'
-        local bg_dark_blue = '#080a0f'
+        local bg_dark_blue = '#0e111a'
 
         hl(0, 'Normal', { bg = bg_black })
         hl(0, 'NormalFloat', { bg = bg_black })
@@ -28,6 +28,8 @@ return {
           'TelescopeResultsBorder',
           'TelescopePreviewNormal',
           'TelescopePreviewBorder',
+          'NormalNC',
+          'NvimTreeNormalNC',
         }
         for _, group in ipairs(groups) do
           hl(0, group, { bg = bg_dark_blue })

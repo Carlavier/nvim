@@ -19,9 +19,17 @@ return {
   opts = {
     keymap = {
       preset = 'default',
+      ['<CR>'] = { 'accept', 'fallback' },
+      ['<Tab>'] = { 'accept', 'fallback' },
+      ['Up'] = { 'select_prev', 'fallback' },
+      ['Down'] = { 'select_next', 'fallback' },
     },
     appearance = { nerd_font_variant = 'mono' },
     completion = {
+      ghost_text = { enabled = true },
+      menu = {
+        auto_show = true,
+      },
       documentation = { auto_show = false, auto_show_delay_ms = 500 },
     },
 

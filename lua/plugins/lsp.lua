@@ -22,9 +22,7 @@ return {
         end
 
         map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-
         map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
-
         map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -71,6 +69,7 @@ return {
           '--header-insertion=never',
         },
       },
+
       stylua = {},
 
       lua_ls = {
@@ -94,10 +93,10 @@ return {
             },
             workspace = {
               checkThirdParty = false,
-              library = vim.tbl_extend('force', vim.api.nvim_get_runtime_file('', true), {
-                '${3rd}/luv/library',
-                '${3rd}/busted/library',
-              }),
+              library = {
+                vim.env.VIMRUNTIME .. '/lua',
+                vim.fn.stdpath('config') .. '/lua',
+              },
             },
           })
         end,

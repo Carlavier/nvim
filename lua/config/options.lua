@@ -20,7 +20,7 @@ vim.opt.undofile = true
 vim.opt.signcolumn = 'yes'
 
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 500
+vim.opt.timeoutlen = 300
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -35,3 +35,7 @@ vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 
 vim.opt.confirm = true
+
+vim.opt.shortmess:append('I')
+
+vim.api.nvim_set_hl(0, 'BlinkCmpGhostText', { bg = 'NONE', ctermbg = 'NONE' })
