@@ -17,7 +17,7 @@ vim.keymap.set({ 'n', 'v' }, 'P', 'p')
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>qq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
@@ -52,3 +52,5 @@ vim.keymap.set('n', '<leader>x', ':Bdelete<CR>', { desc = 'Close Buffer' })
 vim.keymap.set('n', '<C-PageDown>', ':bnext<CR>', { desc = 'Next Buffer' })
 vim.keymap.set('n', '<C-PageUp>', ':bprev<CR>', { desc = 'Previous Buffer' })
 vim.keymap.set('n', '<leader>u', ':e #<CR>')
+
+vim.keymap.set('n', '<leader>pf', ':Ex<CR>')

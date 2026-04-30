@@ -6,8 +6,7 @@ return {
     },
     formatters = {
       stylua = {
-        -- Force StyLua to use your Nvim config file globally
-        prepend_args = { '--config-path',  vim.fn.stdpath("config") .. '/format/.stylua.toml'},
+        prepend_args = { '--config-path', vim.fn.stdpath('config') .. '/format/.stylua.toml' },
       },
     },
     format_on_save = {

@@ -63,7 +63,15 @@ return {
 
     ---@type table<string, vim.lsp.Config>
     local servers = {
-      stylua = {}, -- Used to format Lua code
+      clangd = {
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--clang-tidy',
+          '--header-insertion=never',
+        },
+      },
+      stylua = {},
 
       lua_ls = {
         on_init = function(client)
