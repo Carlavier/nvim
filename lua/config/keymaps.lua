@@ -5,6 +5,10 @@ vim.keymap.set(allModes, 'l', 'j')
 vim.keymap.set(allModes, ';', 'l')
 vim.keymap.set(allModes, 'h', ';')
 
+vim.keymap.set(allModes, '<C-w>j', '<C-w>h')
+vim.keymap.set(allModes, '<C-w>l', '<C-w>j')
+vim.keymap.set(allModes, '<C-w>;', '<C-w>l')
+
 vim.keymap.set('n', '<C-z>', '<Nop>')
 
 vim.keymap.set('n', '<C-Right>', 'w', { noremap = true })
@@ -53,4 +57,4 @@ vim.keymap.set('n', '<C-PageDown>', ':bnext<CR>', { desc = 'Next Buffer' })
 vim.keymap.set('n', '<C-PageUp>', ':bprev<CR>', { desc = 'Previous Buffer' })
 vim.keymap.set('n', '<leader>u', ':e #<CR>')
 
-vim.keymap.set('n', '<leader>pf', ':Ex<CR>')
+vim.keymap.set('n', '<leader>pf', ':Ex<Enter>')
