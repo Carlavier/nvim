@@ -15,6 +15,11 @@ return {
   config = function()
     require('telescope').setup({
       defaults = {
+        mappings = {
+          i = {
+            ['<C-h>'] = { '<c-s-w>', type = 'command' },
+          },
+        },
         file_ignore_patterns = { '%.git/' },
         vimgrep_arguments = {
           'rg',
