@@ -39,3 +39,8 @@ vim.opt.confirm = true
 vim.opt.shortmess:append('I')
 
 vim.api.nvim_set_hl(0, 'BlinkCmpGhostText', { bg = 'NONE', ctermbg = 'NONE' })
+
+vim.g.deprecation_warnings = false
+vim.deprecate = function() end
+
+vim.cmd('packadd nvim.undotree')

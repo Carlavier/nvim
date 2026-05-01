@@ -80,6 +80,18 @@ return {
             separator = { right = '' },
           },
         },
+        lualine_c = {
+          {
+            function() return ' 󱉭  ' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') end,
+            color = { fg = '#ff9e64', gui = 'bold' },
+            separator = '  ',
+          },
+          {
+            'filename',
+            file_status = true,
+            path = 1,
+          },
+        },
       },
     })
   end,

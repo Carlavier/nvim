@@ -5,10 +5,6 @@ vim.keymap.set(allModes, 'l', 'j')
 vim.keymap.set(allModes, ';', 'l')
 vim.keymap.set(allModes, 'h', ';')
 
-vim.keymap.set(allModes, '<C-w>j', '<C-w>h')
-vim.keymap.set(allModes, '<C-w>l', '<C-w>j')
-vim.keymap.set(allModes, '<C-w>;', '<C-w>l')
-
 vim.keymap.set('n', '<C-z>', '<Nop>')
 
 vim.keymap.set('n', '<C-Right>', 'w', { noremap = true })
@@ -25,23 +21,12 @@ vim.keymap.set('n', '<leader>qq', vim.diagnostic.setloclist, { desc = 'Open diag
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<M-j>', '<C-w>h', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<M-;>', '<C-w>l', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<M-l>', '<C-w>j', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<M-k>', '<C-w>k', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set(
-  'n',
-  '<leader>f',
-  function()
-    require('conform').format({
-      lsp_fallback = true,
-      async = false,
-      timeout_ms = 500,
-    })
-  end,
-  { desc = '[F]ormat current buffer' }
-)
+vim.keymap.set('n', '<leader>f', '<cmd>w<CR>', { desc = '[F]ormat and save' })
 
 vim.keymap.set('n', '<leader>qs', function() require('persistence').select() end, { desc = 'Select Session' })
 vim.keymap.set(
@@ -83,3 +68,8 @@ vim.keymap.set(
 )
 
 vim.keymap.set('n', '<leader>u', '<cmd>Undotree<CR>')
+
+vim.keymap.set('n', 'dic', 'di{', { desc = '[D]elete [I]nside [C]urly bracket' })
+vim.keymap.set('n', 'dis', 'di[', { desc = '[D]elete [I]nside [S]quare bracket' })
+vim.keymap.set('n', 'cic', 'di{', { desc = '[C]change [I]nside [C]urly bracket' })
+vim.keymap.set('n', 'cis', 'di[', { desc = '[C]change [I]nside [S]quare bracket' })

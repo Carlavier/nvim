@@ -1,0 +1,19 @@
+---
+BasedOnStyle: Google
+AccessModifierOffset: -2
+AlignAfterOpenBracket: BlockIndent
+AllowShortFunctionsOnASingleLine: Inline
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Attach
+BreakConstructorInitializers: AfterColon
+ColumnLimit: 100
+ConstructorInitializerIndentWidth: 4
+FixNamespaceComments: true
+IndentCaseLabels: true
+IndentWidth: 4
+PackConstructorInitializers: Never
+PointerAlignment: Left
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+...

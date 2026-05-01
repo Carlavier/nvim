@@ -55,26 +55,46 @@ return {
     vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
+    vim.keymap.set('n', '<leader>sp', function()
+      require('telescope').extensions.projects.projects({
+        attach_mappings = function(prompt_bufnr, _)
+          local actions = require('telescope.actions')
+          local action_state = require('telescope.actions.state')
+
+          actions.select_default:replace(function()
+            local selection = action_state.get_selected_entry()
+            actions.close(prompt_bufnr)
+
+            if selection then
+              require('persistence').save()
+              require('persistence').stop()
+              vim.cmd('silent! %bd')
+
+              vim.api.nvim_set_current_dir(selection.value)
+              require('persistence').load()
+              require('persistence').start()
+            end
+          end)
+          return true
+        end,
+      })
+    end, { desc = '[S]earch [P]rojects' })
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
       callback = function(event)
         local buf = event.buf
 
         vim.keymap.set('n', 'grr', builtin.lsp_references, { buffer = buf, desc = '[G]oto [R]eferences' })
-
         vim.keymap.set('n', 'gri', builtin.lsp_implementations, { buffer = buf, desc = '[G]oto [I]mplementation' })
-
         vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
-
         vim.keymap.set('n', 'gO', builtin.lsp_document_symbols, { buffer = buf, desc = 'Open Document Symbols' })
-
         vim.keymap.set(
           'n',
           'gW',
           builtin.lsp_dynamic_workspace_symbols,
           { buffer = buf, desc = 'Open Workspace Symbols' }
         )
-
         vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
       end,
     })
@@ -101,13 +121,6 @@ return {
         })
       end,
       { desc = '[S]earch [/] in Open Files' }
-    )
-
-    vim.keymap.set(
-      'n',
-      '<leader>sn',
-      function() builtin.find_files({ cwd = vim.fn.stdpath('config') }) end,
-      { desc = '[S]earch [N]eovim files' }
     )
   end,
 }
