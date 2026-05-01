@@ -12,8 +12,11 @@ vim.keymap.set('n', '<C-Left>', 'b', { noremap = true })
 
 vim.keymap.set({ 'i', 'c' }, '<C-h>', '<C-w>')
 
-vim.keymap.set({ 'n', 'v' }, 'p', 'gP')
-vim.keymap.set({ 'n', 'v' }, 'P', 'p')
+vim.keymap.set('v', 'p', '"_dP')
+vim.keymap.set('v', 'P', '"_dp')
+
+vim.keymap.set('n', 'p', 'gP')
+vim.keymap.set('n', 'P', 'p')
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
@@ -66,8 +69,3 @@ vim.keymap.set(
 )
 
 vim.keymap.set('n', '<leader>u', '<cmd>Undotree<CR>')
-
-vim.keymap.set('n', 'dic', 'di{', { desc = '[D]elete [I]nside [C]urly bracket' })
-vim.keymap.set('n', 'dis', 'di[', { desc = '[D]elete [I]nside [S]quare bracket' })
-vim.keymap.set('n', 'cic', 'di{', { desc = '[C]change [I]nside [C]urly bracket' })
-vim.keymap.set('n', 'cis', 'di[', { desc = '[C]change [I]nside [S]quare bracket' })
