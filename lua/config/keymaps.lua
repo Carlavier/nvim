@@ -48,3 +48,19 @@ vim.keymap.set(
 )
 
 vim.keymap.set('n', '<leader>u', '<cmd>Undotree<CR>')
+
+vim.keymap.set('n', '<leader>o', function()
+  local lines = {}
+  for _ = 1, vim.v.count1 do
+    table.insert(lines, '')
+  end
+  vim.api.nvim_put(lines, 'l', true, true)
+end, { desc = 'Add empty line below' })
+
+vim.keymap.set('n', '<leader>O', function()
+  local lines = {}
+  for _ = 1, vim.v.count1 do
+    table.insert(lines, '')
+  end
+  vim.api.nvim_put(lines, 'l', false, true)
+end, { desc = 'Add empty line above' })
