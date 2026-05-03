@@ -38,6 +38,9 @@ return {
 
         hl(0, 'BufferLineBufferSelected', { fg = '#eeeeee', bg = bg_black, bold = true })
         hl(0, 'BufferLineIndicatorSelected', { fg = '#ff0000', bg = bg_black })
+        hl(0, 'BufferLineDuplicateSelected', { fg = '#ff6347', bg = bg_black, italic = true })
+        hl(0, 'BufferLineDuplicate', { fg = '#692020', italic = true })
+        hl(0, 'BufferLineDuplicateVisible', { fg = '#692020', italic = true })
       end,
     })
 
