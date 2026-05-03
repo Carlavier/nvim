@@ -9,7 +9,7 @@ return {
         local hl = vim.api.nvim_set_hl
         local bg_black = '#000000'
         local bg_dark_blue = '#0e111a'
-        local bg_even_darker_blue = '#0e111a'
+        -- local bg_even_darker_blue = '#0e111a'
 
         hl(0, 'Normal', { bg = bg_black })
         hl(0, 'NormalNC', { bg = bg_black })

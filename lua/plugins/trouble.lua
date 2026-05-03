@@ -2,14 +2,27 @@ return {
   'folke/trouble.nvim',
   opts = {
     modes = {
-      right_panel = {
+      diagnostics = {
         mode = 'diagnostics',
-        statusline = false,
         focus = true,
         auto_jump = false,
-        auto_preview = false,
         auto_close = false,
         win = { position = 'bottom' },
+        preview = {
+          type = 'split',
+          relative = 'win',
+          position = 'right',
+          size = 0.4,
+        },
+        filter = {
+          any = {
+            buf = 0,
+            {
+              severity = vim.diagnostic.severity.ERROR,
+              function(item) return item.filename:find((vim.loop or vim.uv).cwd(), 1, true) end,
+            },
+          },
+        },
       },
     },
   },
@@ -26,7 +39,7 @@ return {
   keys = {
     {
       '<leader>qq',
-      '<cmd>Trouble right_panel toggle<cr>',
+      '<cmd>Trouble diagnostics toggle<cr>',
       desc = 'Dianostics [Q]uickfix list (Trouble)',
     },
   },
