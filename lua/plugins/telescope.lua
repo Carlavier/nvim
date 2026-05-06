@@ -47,6 +47,14 @@ return {
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
 
+    local function find_nvim_config()
+      require('telescope.builtin').find_files({
+        prompt_title = 'NVIM Config',
+        cwd = vim.fn.stdpath('config'),
+        hidden = true,
+      })
+    end
+
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -59,6 +67,7 @@ return {
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    vim.keymap.set('n', '<leader>sq', find_nvim_config, { desc = '[S]earch Files in Confi[q]' })
 
     vim.keymap.set('n', '<leader>sp', function()
       require('telescope').extensions.projects.projects({
