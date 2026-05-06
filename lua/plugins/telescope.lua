@@ -33,6 +33,7 @@ return {
           '--glob',
           '!**/.git/*',
         },
+        tiebreak = function(current_entry, existing_entry, _) return current_entry.index < existing_entry.index end,
       },
       pickers = {
         find_files = {
