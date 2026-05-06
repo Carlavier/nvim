@@ -1,10 +1,3 @@
-local allModes = { 'n', 'v', 's', 'x', 'o' }
-
-vim.keymap.set(allModes, 'j', 'h')
-vim.keymap.set(allModes, 'l', 'j')
-vim.keymap.set(allModes, ';', 'l')
-vim.keymap.set(allModes, 'h', ';')
-
 vim.keymap.set('n', '<C-z>', '<Nop>')
 
 vim.keymap.set('n', '<C-Right>', 'w', { noremap = true })
@@ -22,9 +15,9 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('n', '<M-j>', '<C-w>h', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<M-;>', '<C-w>l', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<M-l>', '<C-w>j', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<M-h>', '<C-w>h', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<M-l>', '<C-w>l', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<M-j>', '<C-w>j', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<M-k>', '<C-w>k', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set('n', '<leader>f', '<cmd>w<CR>', { desc = '[F]ormat and save' })
@@ -55,6 +48,7 @@ vim.keymap.set('n', '<leader>o', function()
     table.insert(lines, '')
   end
   vim.api.nvim_put(lines, 'l', true, true)
+  vim.cmd('normal! k')
 end, { desc = 'Add empty line below' })
 
 vim.keymap.set('n', '<leader>O', function()
