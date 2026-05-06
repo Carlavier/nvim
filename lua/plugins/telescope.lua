@@ -42,10 +42,15 @@ return {
       },
       extensions = {
         ['ui-select'] = { require('telescope.themes').get_dropdown() },
+        projects = {
+          order_by = 'recent',
+          sync_with_nvim_tree = true,
+        },
       },
     })
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
+    pcall(require('telescope').load_extension, 'projects')
 
     local function find_nvim_config()
       require('telescope.builtin').find_files({
