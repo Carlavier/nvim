@@ -1,10 +1,19 @@
 return {
-  'nvim-treesitter/nvim-treesitter',
-  lazy = false,
-  build = ':TSUpdate',
-  config = function()
-      local ts = require('nvim-treesitter')
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+        local treesitter = require('nvim-treesitter')
 
-      ts.install({ 'python', 'javascript', 'typescript', 'lua' })
-  end,
+        treesitter.setup {
+            install_dir = vim.fn.stdpath('data') .. '/site'
+        }
+
+        treesitter.install({
+            'python',
+            'lua',
+            'vim',
+            'vimdoc',
+        })
+    end,
 }

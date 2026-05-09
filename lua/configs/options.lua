@@ -54,3 +54,5 @@ vim.opt.redrawtime = 10000
 vim.opt.laststatus = 3
 
 vim.opt.showmode = false
+
+vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
