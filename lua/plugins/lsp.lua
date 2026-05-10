@@ -28,7 +28,7 @@ return {
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    'ts_ls',
+                    'vtsls',
                     'html',
                     'cssls',
                     'tailwindcss',
