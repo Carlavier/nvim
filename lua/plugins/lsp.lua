@@ -1,3 +1,30 @@
+local servers = {
+    lua_ls = {
+        settings = {
+            Lua = {
+                diagnostics = { global = { 'vim' } }
+            },
+        },
+    },
+
+    vtsls = {},
+
+    pyright = {
+        settings = {
+            python = {
+                analysis = {
+                    extraPaths = { "src" },
+                    autoImportCompletions = true,
+                    diagnosticMode = "workspace",
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                    typeCheckingMode = "basic",
+                },
+            },
+        },
+    },
+}
+
 return {
     {
         "mason-org/mason.nvim",
@@ -16,34 +43,15 @@ return {
 
     {
         "neovim/nvim-lspconfig",
-    },
-
-    {
-        "mason-org/mason-lspconfig.nvim",
-        dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
         config = function()
-            local lspconfig = require("lspconfig")
+            vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    'vtsls',
-                    'html',
-                    'cssls',
-                    'tailwindcss',
-                    'lua_ls',
-                    'eslint',
-                    'basedpyright',
-                },
-                handlers = {
-                    function(server_name)
-                        lspconfig[server_name].setup({
-                            capabilities = capabilities,
-                        })
-                    end,
-                }
-            })
-        end
-    }
+            local capabilities = require('blink.cmp').get_lsp_capabilities()
+            for server_name, config in pairs(servers) do
+                config.capabilities = capabilities
+                vim.lsp.config(server_name, config)
+                vim.lsp.enable(server_name)
+            end
+        end,
+    },
 }
