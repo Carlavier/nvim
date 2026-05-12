@@ -4,10 +4,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    {
-      "GnikDroy/projections.nvim",
-      branch = "pre_release",
-    },
+    "GnikDroy/projections.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -15,30 +12,6 @@ return {
     local projections = require("projections")
 
     projections.setup({
-      patterns = {
-        -- Version control
-        ".git",
-        ".svn",
-        -- C/C++
-        "CMakeLists.txt",
-        "Makefile",
-        "configure.ac",
-        ".clang-format",
-        -- JavaScript / TypeScript
-        "package.json",
-        "tsconfig.json",
-        "jsconfig.json",
-        -- Python
-        "pyproject.toml",
-        "setup.py",
-        "requirements.txt",
-        "venv",
-        ".venv",
-        -- HTML / CSS / Web
-        "index.html",
-        "tailwind.config.js",
-        "postcss.config.js",
-      },
       store_hooks = {
         pre_store = function()
           vim.cmd("silent! wa")
@@ -69,7 +42,7 @@ return {
     vim.keymap.set("n", "<leader>sc", builtin.commands, { desc = "Search Commands" })
     vim.keymap.set("n", "<leader>si", builtin.git_files, { desc = "Search Git Files" })
 
-    vim.keymap.set("n", "<leader>sp", "<cmd>Telescope projections<CR>", { desc = "Switch Project" })
+    vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projections<CR>", { desc = "Switch Project" })
 
     vim.keymap.set("n", "<leader>sn", function()
       builtin.find_files({ cwd = vim.fn.stdpath("config") })
