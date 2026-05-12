@@ -23,3 +23,4 @@ require("lazy").setup({
 
 require("configs")
 require("autocmd")
+vim.opt.termguicolors = true
