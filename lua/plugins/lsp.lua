@@ -61,6 +61,31 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+          local opts = { buffer = event.buf }
+
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to definition" })
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "Go to declaration" })
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf, desc = "Go to implementation" })
+          vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "Go to type definition" })
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = event.buf, desc = "List references" })
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover documentation" })
+          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature help" })
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = event.buf, desc = "Rename symbol" })
+          vim.keymap.set(
+            { "n", "v" },
+            "<leader>ca",
+            vim.lsp.buf.code_action,
+            { buffer = event.buf, desc = "Code actions" }
+          )
+
+          vim.keymap.set("n", "<leader>th", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end, { buffer = event.buf, desc = "Toggle inlay hints" })
+        end,
+      })
+
       vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()

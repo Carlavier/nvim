@@ -1,1 +1,1 @@
-require('autocmd/tree-sitter-start')
+require("autocmd.netrw-exit")
