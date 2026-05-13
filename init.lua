@@ -24,3 +24,4 @@ require("lazy").setup({
 require("configs")
 require("autocmd")
 vim.opt.termguicolors = true
+vim.api.nvim_set_hl(0, "CursorLineNr", { reverse = true, bold = true })

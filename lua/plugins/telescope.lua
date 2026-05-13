@@ -4,50 +4,67 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    {
-      "GnikDroy/projections.nvim",
-      branch = "pre_release",
-    },
+    "DrKJeff16/project.nvim",
   },
   config = function()
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")
-    local projections = require("projections")
 
-    projections.setup({
+    require("project").setup({
+      manual_mode = false,
+      detection_methods = { "lsp", "pattern" },
       patterns = {
-        -- Version control
         ".git",
+        ".github",
+        "_darcs",
+        ".hg",
+        ".bzr",
         ".svn",
-        -- C/C++
-        "CMakeLists.txt",
         "Makefile",
-        "configure.ac",
-        ".clang-format",
-        -- JavaScript / TypeScript
         "package.json",
-        "tsconfig.json",
-        "jsconfig.json",
-        -- Python
+        "Pipfile",
         "pyproject.toml",
-        "setup.py",
-        "requirements.txt",
-        "venv",
-        ".venv",
-        -- HTML / CSS / Web
-        "index.html",
-        "tailwind.config.js",
-        "postcss.config.js",
+        ".nvim.lua",
       },
-      store_hooks = {
-        pre_store = function()
-          vim.cmd("silent! wa")
-        end,
+      lsp = {
+        enabled = true,
+        use_pattern_matching = false,
+      },
+      telescope = {
+        mappings = {
+          n = {
+            ["f"] = "find_project_files",
+            ["b"] = "browse_project_files",
+            ["d"] = "delete_project",
+            ["s"] = "search_in_project_files",
+            ["r"] = "recent_project_files",
+            ["w"] = "change_working_directory",
+          },
+          i = {
+            ["<C-f>"] = "find_project_files",
+            ["<C-b>"] = "browse_project_files",
+            ["<C-d>"] = "delete_project",
+            ["<C-s>"] = "search_in_project_files",
+            ["<C-r>"] = "recent_project_files",
+            ["<C-w>"] = "change_working_directory",
+          },
+        },
       },
     })
 
     telescope.setup({
       defaults = {
+        file_ignore_patterns = {
+          "node_modules/",
+          "%.git/",
+          "venv/",
+          "%.venv/",
+          "__pycache__/",
+          "%.o",
+          "%.a",
+          "%.out",
+          "%.bin",
+        },
         mappings = {
           i = {
             ["<C-h>"] = function()
@@ -56,10 +73,20 @@ return {
           },
         },
       },
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+        live_grep = {
+          additional_args = function()
+            return { "--hidden" }
+          end,
+        },
+      },
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("projections")
+    telescope.load_extension("projects")
 
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Search Files" })
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Search by Grep" })
@@ -68,8 +95,7 @@ return {
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Search Keymaps" })
     vim.keymap.set("n", "<leader>sc", builtin.commands, { desc = "Search Commands" })
     vim.keymap.set("n", "<leader>si", builtin.git_files, { desc = "Search Git Files" })
-
-    vim.keymap.set("n", "<leader>sp", "<cmd>Telescope projections<CR>", { desc = "Switch Project" })
+    vim.keymap.set("n", "<leader>sp", telescope.extensions.projects.projects, { desc = "Search Projects" })
 
     vim.keymap.set("n", "<leader>sn", function()
       builtin.find_files({ cwd = vim.fn.stdpath("config") })
