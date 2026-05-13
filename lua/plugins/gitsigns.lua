@@ -4,7 +4,7 @@ return {
     require("gitsigns").setup({
       signs = {
         add = { text = "│" },
-        change = { text = "│" },
+        change = { text = "┃" },
         delete = { text = "_" },
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
@@ -12,7 +12,7 @@ return {
       },
       signs_staged = {
         add = { text = "│" },
-        change = { text = "│" },
+        change = { text = "┃" },
         delete = { text = "_" },
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
@@ -50,5 +50,10 @@ return {
         col = 1,
       },
     })
+
+    vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#50FA7B", bold = true })
+
+    vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#8BE9FD" })
+    vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#FF0000" })
   end,
 }

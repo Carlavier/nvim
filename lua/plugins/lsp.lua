@@ -26,12 +26,18 @@ local servers = {
     },
   },
 
-  pyright = {
+  basedpyright = {
+    -- cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
+    cmd = {
+      vim.fn.stdpath("data") .. "/mason/bin/basedpyright-langserver",
+      "--stdio",
+    },
     settings = {
-      python = {
+      basedpyright = {
         analysis = {
           extraPaths = { "src" },
           autoImportCompletions = true,
+          indexing = true,
           diagnosticMode = "workspace",
           autoSearchPaths = true,
           useLibraryCodeForTypes = true,
