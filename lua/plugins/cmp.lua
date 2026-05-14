@@ -31,9 +31,36 @@ return {
       ["<Down>"] = { "select_next", "fallback" },
       ["<C-n>"] = {},
       ["<C-p>"] = {},
-      ["<Tab>"] = { "select_and_accept", "fallback" },
+      ["<Tab>"] = {
+        function(cmp)
+          if cmp.is_visible() then
+            return cmp.select_and_accept()
+          end
+
+          local copilot = require("copilot.suggestion")
+          if copilot.is_visible() then
+            copilot.accept()
+            return true
+          end
+        end,
+        "fallback",
+      },
       ["<CR>"] = { "select_and_accept", "fallback" },
-      ["<Esc>"] = { "hide", "fallback" },
+      ["<Esc>"] = {
+        function(cmp)
+          if cmp.is_visible() then
+            cmp.hide()
+            return true
+          end
+
+          local copilot = require("copilot.suggestion")
+          if copilot.is_visible() then
+            copilot.dismiss()
+            return true
+          end
+        end,
+        "fallback",
+      },
     },
 
     cmdline = {
