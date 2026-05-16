@@ -24,6 +24,7 @@ return {
     priority = 1000,
     config = function()
       vim.cmd("colorscheme dark_flat")
+      vim.api.nvim_set_hl(0, "Normal", { bg = "#0b0b0b" })
       vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#777777" })
       vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#777777" })
     end,
