@@ -49,3 +49,5 @@ end, { desc = "Go to previous diagnostic" })
 vim.keymap.set("n", "]d", function()
   vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Go to next diagnostic" })
+
+vim.keymap.set("n", "q:", "<nop>")

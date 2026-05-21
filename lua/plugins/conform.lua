@@ -30,7 +30,7 @@ local global_configs = {
       vim.fn.expand("~/.config/nvim/formatter/.prettierrc"),
       "--stdin-filepath",
       "$FILENAME",
-      "-",
+      "--",
     },
   },
   python = {
