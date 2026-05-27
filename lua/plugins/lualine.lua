@@ -68,14 +68,37 @@ return {
       require("lualine").setup({
         options = {
           theme = custom_theme,
-          component_separators = { left = "", right = "" },
-          section_separators = { left = "", right = "" },
+          component_separators = { left = "|", right = "|" },
+          section_separators = { left = "", right = "" },
           globalstatus = true,
         },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
-          lualine_c = { { "filename", path = 1 } },
+          lualine_c = {
+            {
+              function()
+                return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+              end,
+              color = { fg = colors.orange, gui = "bold" },
+              padding = { left = 1, right = 0 },
+              separator = "",
+            },
+            {
+              function()
+                return " │ "
+              end,
+              color = { fg = colors.dim },
+              padding = { left = 0, right = 0 },
+              separator = "",
+            },
+            {
+              "filename",
+              path = 1,
+              padding = { left = 0, right = 1 },
+              separator = "",
+            },
+          },
           lualine_x = { "encoding", "fileformat", "filetype" },
           lualine_y = { "progress" },
           lualine_z = { "location" },

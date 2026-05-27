@@ -66,3 +66,5 @@ vim.opt.listchars = {
 
 vim.api.nvim_set_hl(0, "Whitespace", { fg = "#ff0000", force = true })
 vim.api.nvim_set_hl(0, "NonText", { fg = "#ff0000", force = true })
+
+vim.opt.title = true

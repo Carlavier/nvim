@@ -22,9 +22,9 @@ local global_configs = {
     },
   },
   javascript = {
-    name = "prettier",
+    name = "prettierd",
     filename = { ".prettierrc", ".prettierrc.json", "prettier.config.js" },
-    found_args = { "--stdin-filepath", "$FILENAME", "-" },
+    found_args = { "--stdin-filepath", "$FILENAME", "--" },
     fallback_args = {
       "--config",
       vim.fn.expand("~/.config/nvim/formatter/.prettierrc"),
@@ -36,26 +36,20 @@ local global_configs = {
   python = {
     name = "black",
     filename = { "pyproject.toml", "black" },
-    found_args = { "--stdin-filepath", "$FILENAME", "-" },
+    found_args = { "--stdin-filename", "$FILENAME", "-" },
     fallback_args = {
       "--config",
       vim.fn.expand("~/.config/nvim/formatter/pyproject.toml"),
-      "--stdin-filepath",
+      "--stdin-filename",
       "$FILENAME",
       "-",
     },
   },
   sh = {
     name = "shfmt",
-    filename = { ".editorconfig", ".shfmt" },
+    filename = { ".editorconfig" },
     found_args = { "--stdin-filepath", "$FILENAME", "-" },
-    fallback_args = {
-      "--config",
-      vim.fn.expand("~/.config/nvim/formatter/.shfmt"),
-      "--stdin-filepath",
-      "$FILENAME",
-      "-",
-    },
+    fallback_args = { "--stdin-filepath", "$FILENAME", "-" },
   },
 }
 
@@ -93,7 +87,7 @@ return {
       formatters_by_ft = formatters_by_ft,
       formatters = custom_formatters,
       format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = 3000,
         lsp_fallback = true,
       },
     }
