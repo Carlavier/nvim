@@ -53,7 +53,6 @@ local global_configs = {
   },
 }
 
--- Map aliases
 global_configs.typescript = global_configs.javascript
 global_configs.typescriptreact = global_configs.javascript
 global_configs.javascriptreact = global_configs.javascript
@@ -65,7 +64,10 @@ local function get_custom_args(config)
     command = config.name,
     args = function(_, ctx)
       local found = vim.fs.find(config.filename, { path = ctx.dirname, upward = true })[1]
-      return found and config.found_args or config.fallback_args
+      if found then
+        return config.found_args
+      end
+      return config.fallback_args
     end,
   }
 end
@@ -79,8 +81,8 @@ return {
     local formatters_by_ft = {}
 
     for ft, cfg in pairs(global_configs) do
-      custom_formatters[cfg.name] = get_custom_args(cfg)
-      formatters_by_ft[ft] = { cfg.name }
+      custom_formatters[ft .. "_" .. cfg.name] = get_custom_args(cfg)
+      formatters_by_ft[ft] = { ft .. "_" .. cfg.name }
     end
 
     return {
