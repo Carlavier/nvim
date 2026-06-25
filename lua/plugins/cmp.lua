@@ -1,13 +1,9 @@
 return {
   "saghen/blink.cmp",
   dependencies = {
-    "saghen/blink.lib",
     "rafamadriz/friendly-snippets",
   },
-  version = "*",
-  build = function()
-    require("blink.cmp").build()
-  end,
+  version = "v0.*",
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
@@ -17,8 +13,8 @@ return {
         auto_show = true,
         draw = {
           columns = {
-            { "label", "label_description", gap = 1 },
-            { "kind_icon", "kind", gap = 1 },
+            { "label",     "label_description", gap = 1 },
+            { "kind_icon", "kind",              gap = 1 },
           },
         },
       },
@@ -37,22 +33,7 @@ return {
     },
 
     cmdline = {
-      enabled = true,
-      completion = {
-        menu = { auto_show = false },
-      },
-      keymap = {
-        preset = "default",
-        ["<Up>"] = { "select_prev", "fallback" },
-        ["<Down>"] = { "select_next", "fallback" },
-        ["<C-n>"] = {},
-        ["<C-p>"] = {},
-        ["<Tab>"] = { "select_and_accept", "fallback" },
-        ["<CR>"] = { "select_and_accept", "fallback" },
-      },
+      enabled = false, -- Temporarily disabling cmdline to eliminate target source vector errors
     },
-
-    sources = { default = { "lsp", "path", "snippets" } },
-    fuzzy = { implementation = "rust" },
   },
 }
